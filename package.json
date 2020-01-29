@@ -1,24 +1,41 @@
 {
-  "name": "first-npm-project",
+  "name": "webdev-boilerplate",
   "version": "1.0.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
   "browserslist": [
     "last 4 versions"
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "postcss": {
+    "plugins": {
+      "usedcss": {},
+      "postcss-normalize": {},
+      "postcss-preset-env": {},
+      "autoprefixer": {},
+      "cssnano": {}
+    }
   },
-  "author": "",
-  "license": "ISC",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env"
+      ]
+    ]
+  },
+  "scripts": {
+    "build:css": "postcss src/style.css -o dist/style.css",
+    "build:js": "babel src/app.js -o dist/app.js",
+    "build": "npm run build:css && npm run build:js"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "autoprefixer": "^9.7.4",
     "cssnano": "^4.1.10",
-    "gulp": "^4.0.2",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-uglify-es": "^2.0.0"
+    "postcss-cli": "^7.1.0",
+    "postcss-normalize": "^8.0.1",
+    "postcss-preset-env": "^6.7.0"
   }
 }
