@@ -1,0 +1,11 @@
+@import-normalize
+
+body {
+    user-select: none;
+}
+
+.popup {
+    --text-color: black;
+    color: var(--text-color);
+    background-color: hsla(0, 0%, 73%, 0.6);
+}
