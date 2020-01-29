@@ -9,7 +9,6 @@
   ],
   "postcss": {
     "plugins": {
-      "usedcss": {},
       "postcss-normalize": {},
       "postcss-preset-env": {},
       "autoprefixer": {},
