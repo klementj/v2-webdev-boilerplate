@@ -1,38 +1,52 @@
-const gulp = require("gulp");
-const htmlmin = require("gulp-htmlmin");
-const sass = require("gulp-sass");
-const imagemin = require("gulp-imagemin");
-const uglify = require("gulp-uglify-es").default;
+// utilities
+const gulp = require('gulp');
+const rename = require('gulp-rename')
+
+// html
+const htmlmin = require('gulp-htmlmin');
+
+// css
+const sass = require('gulp-sass');
+const postcss = require('gulp-postcss')
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
+
+// javascript
+const uglify = require('gulp-uglify-es').default;
+
+// images
+const imagemin = require('gulp-imagemin');
 
 const html = () =>
-    gulp.src("src/index.html")
+    gulp.src('src/index.html')
         .pipe(htmlmin({
             collapseWhitespace: true
         }))
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest('dist'));
 
-const css = () =>
-    gulp.src("src/index.scss")
-        .pipe(sass({
-            includePaths: ["node_modules"],
-            outputStyle: 'compressed'
-        }))
-        .pipe(gulp.dest("dist"));
+const css = () => {
+    const plugins = [autoprefixer()]
+    return gulp.src('src/scss/main.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss(plugins))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist'));
+}
 
 const img = () =>
-    gulp.src("src/img/**")
+    gulp.src('src/img/**')
         .pipe(imagemin())
-        .pipe(gulp.dest("dist/img"));
+        .pipe(gulp.dest('dist/img'));
 
 const js = () =>
-    gulp.src("src/index.js")
+    gulp.src('src/index.js')
         .pipe(uglify())
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest('dist'));
 
 const watch = () => {
-    gulp.watch("src/**/*.html", html);
-    gulp.watch("src/**/*.scss", css);
-    gulp.watch("src/index.js", js);
+    gulp.watch('src/**/*.html', html);
+    gulp.watch('src/**/*.scss', css);
+    gulp.watch('src/index.js', js);
 };
 
 module.exports = {
